@@ -1,14 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import loadingGems from "../assets/loading.png";
-import centerGem from "../assets/center-diamond.png";
 
 const Loading = ({ onComplete }) => {
   const containerRef = useRef(null);
   const imgRef = useRef(null);
   const textRef = useRef(null);
   const headingRef = useRef(null);
-  const centerRef = useRef(null);
 
   useEffect(() => {
     gsap.fromTo(
@@ -31,11 +29,11 @@ const Loading = ({ onComplete }) => {
     });
 
     gsap.to(imgRef.current, {
-      filter: "drop-shadow(0 0 25px rgba(0, 255, 255, 0.7))",
-      scale: 1.05,
+      filter: "drop-shadow(0 0 25px rgba(0, 255, 255, 0.9))",
+      scale: 1.08,
       repeat: -1,
       yoyo: true,
-      duration: 1.8,
+      duration: 1.5,
       ease: "power1.inOut",
     });
 
@@ -62,23 +60,6 @@ const Loading = ({ onComplete }) => {
       }
     );
 
-    gsap.to(centerRef.current, {
-      rotation: 360,
-      repeat: -1,
-      duration: 5,
-      ease: "linear",
-      transformOrigin: "50% 50%",
-    });
-
-    gsap.to(centerRef.current, {
-      filter: "drop-shadow(0 0 15px rgba(255,0,0,0.8))",
-      scale: 1.1,
-      repeat: -1,
-      yoyo: true,
-      duration: 1.5,
-      ease: "power1.inOut",
-    });
-
     const timeout = setTimeout(() => {
       gsap.to(containerRef.current, {
         opacity: 0,
@@ -88,7 +69,7 @@ const Loading = ({ onComplete }) => {
           onComplete && onComplete();
         },
       });
-    }, 2000);
+    }, 3000);
 
     return () => {
       clearTimeout(timeout);
@@ -96,7 +77,6 @@ const Loading = ({ onComplete }) => {
         imgRef.current,
         textRef.current,
         headingRef.current,
-        centerRef.current,
         containerRef.current,
       ]);
     };
@@ -114,25 +94,19 @@ const Loading = ({ onComplete }) => {
         Lucky Gems
       </h1>
 
-      {/* Gem Container */}
-      <div className="relative w-54 h-54 flex items-center justify-center">
+      {/* Gem Container with Shine */}
+      <div className="relative w-52 h-52 flex items-center justify-center">
         <img
           ref={imgRef}
           src={loadingGems}
           alt="Loading Gems"
-          className="w-full h-full object-contain"
-        />
-        <img
-          ref={centerRef}
-          src={centerGem}
-          alt="Center Gem"
-          className="absolute w-16 h-16 object-contain"
+          className="w-full h-full object-contain animate-pulse drop-shadow-[0_0_35px_rgba(255,255,255,0.6)]"
         />
       </div>
 
       <p
         ref={textRef}
-        className="mt-6 text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500"
+        className="mt-6 text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-sky-400 to-blue-500"
       >
         Loading Lucky Gems...
       </p>

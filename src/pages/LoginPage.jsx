@@ -1,34 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef } from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { gsap } from "gsap";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const formRef = useRef(null);
 
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleChange = (e) => {
-    const { id, value } = e.target;
-    setFormData((prev) => ({ ...prev, [id]: value }));
-  };
+  useEffect(() => {
+    gsap.fromTo(
+      formRef.current,
+      { y: 50, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, ease: "power3.out" }
+    );
+  }, []);
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-
+  const onSubmit = (data) => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
 
     if (
       storedUser &&
-      storedUser.email === formData.email &&
-      storedUser.password === formData.password
+      storedUser.email === data.email &&
+      storedUser.password === data.password
     ) {
       toast.success("Login successful!");
-      setTimeout(() => {
-        navigate("/");
-      }, 1000);
+      setTimeout(() => navigate("/"), 1000);
     } else {
       toast.error("User not found, please sign up!");
     }
@@ -36,10 +39,15 @@ const LoginPage = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-black text-white px-4">
-      <div className="bg-[#1e293b] p-6 sm:p-8 rounded-xl shadow-2xl w-full max-w-md transition-transform">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center">Login</h2>
+      <div
+        ref={formRef}
+        className="backdrop-blur-lg bg-white/5 border border-white/20 p-6 sm:p-8 rounded-xl shadow-2xl w-full max-w-md transition-all duration-500"
+      >
+        <h2 className="text-3xl font-bold mb-6 text-center text-yellow-400 drop-shadow-md">
+          Login
+        </h2>
 
-        <form onSubmit={handleLogin} className="space-y-5">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           <div>
             <label htmlFor="email" className="block mb-1 text-sm font-medium">
               Email
@@ -47,25 +55,36 @@ const LoginPage = () => {
             <input
               type="email"
               id="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full px-4 py-2 rounded-md bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition duration-300"
-              required
+              {...register("email", { required: "Email is required" })}
+              className="w-full px-4 py-2 rounded-md bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400"
             />
+            {errors.email && (
+              <p className="text-red-400 text-sm mt-1">
+                {errors.email.message}
+              </p>
+            )}
           </div>
+
           <div>
-            <label htmlFor="password" className="block mb-1 text-sm font-medium">
+            <label
+              htmlFor="password"
+              className="block mb-1 text-sm font-medium"
+            >
               Password
             </label>
             <input
               type="password"
               id="password"
-              value={formData.password}
-              onChange={handleChange}
-              className="w-full px-4 py-2 rounded-md bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition duration-300"
-              required
+              {...register("password", { required: "Password is required" })}
+              className="w-full px-4 py-2 rounded-md bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400"
             />
+            {errors.password && (
+              <p className="text-red-400 text-sm mt-1">
+                {errors.password.message}
+              </p>
+            )}
           </div>
+
           <button
             type="submit"
             className="w-full bg-yellow-500 hover:bg-yellow-600 transition text-black font-semibold py-2 rounded-full"

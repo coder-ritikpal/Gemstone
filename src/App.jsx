@@ -19,6 +19,8 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignUpPage";
 import CartPage from "./pages/CartPage"
 import NotFoundPage from "./pages/NotFoundPage";
+import AboutUsPage from "./pages/AboutUsPage";
+import ProductPage from "./pages/ProductPage";
 
 // Redirects to "/" if page was reloaded and not on home
 const ForceHomeRedirect = () => {
@@ -50,8 +52,9 @@ const AppRoutes = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/about" element={<AboutUsPage />} />
+          <Route path="/products" element={<ProductPage />} />
           <Route path="/cart" element={<CartPage />} />
-
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </PageTransition>
