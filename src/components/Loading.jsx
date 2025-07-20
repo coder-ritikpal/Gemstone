@@ -1,115 +1,131 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import loadingGems from "../assets/loading.png";
+import logo from "../assets/logo.png";
 
 const Loading = ({ onComplete }) => {
-  const containerRef = useRef(null);
-  const imgRef = useRef(null);
+  const wrapperRef = useRef(null);
+  const leftPanelRef = useRef(null);
+  const rightPanelRef = useRef(null);
+  const logoRef = useRef(null);
   const textRef = useRef(null);
-  const headingRef = useRef(null);
 
   useEffect(() => {
-    gsap.fromTo(
-      imgRef.current,
-      { opacity: 0, scale: 0.9 },
-      {
-        opacity: 1,
-        scale: 1,
-        duration: 1.2,
-        ease: "power3.out",
-      }
-    );
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline();
 
-    gsap.to(imgRef.current, {
-      rotation: 360,
-      duration: 10,
-      repeat: -1,
-      ease: "linear",
-      transformOrigin: "50% 50%",
-    });
+      // Fade in the wrapper
+      tl.fromTo(
+        wrapperRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 1, ease: "power2.out" }
+      );
 
-    gsap.to(imgRef.current, {
-      filter: "drop-shadow(0 0 25px rgba(0, 255, 255, 0.9))",
-      scale: 1.08,
-      repeat: -1,
-      yoyo: true,
-      duration: 1.5,
-      ease: "power1.inOut",
-    });
-
-    gsap.fromTo(
-      headingRef.current,
-      { opacity: 0, y: -20 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "power2.out",
-      }
-    );
-
-    gsap.fromTo(
-      textRef.current,
-      { opacity: 0, y: 10 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1.2,
-        delay: 0.6,
-        ease: "power2.inOut",
-      }
-    );
-
-    const timeout = setTimeout(() => {
-      gsap.to(containerRef.current, {
-        opacity: 0,
-        duration: 0.8,
-        ease: "power2.inOut",
-        onComplete: () => {
-          onComplete && onComplete();
-        },
-      });
-    }, 3000);
-
-    return () => {
-      clearTimeout(timeout);
-      gsap.killTweensOf([
-        imgRef.current,
+      // Show text and logo
+      tl.fromTo(
         textRef.current,
-        headingRef.current,
-        containerRef.current,
-      ]);
-    };
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
+        "-=0.6"
+      );
+
+      // Logo pulsing glow
+      gsap.to(logoRef.current, {
+        scale: 1.08,
+        duration: 1.2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+
+      // Tear after 3s
+      tl.to({}, { duration: 3 }).add(() => {
+        const tearTL = gsap.timeline({ onComplete });
+
+        // Fade out text + logo before tear
+        tearTL.to([textRef.current, logoRef.current], {
+          opacity: 0,
+          duration: 0.3,
+        });
+
+        // Setup tear panels
+        tearTL.set([leftPanelRef.current, rightPanelRef.current], {
+          scaleX: 0,
+          transformOrigin: "center",
+        });
+
+        // Tear out from center with full screen coverage
+        tearTL.to(
+          leftPanelRef.current,
+          {
+            scaleX: 1,
+            x: "-100vw",
+            duration: 1,
+            ease: "power4.inOut",
+          },
+          0
+        );
+        tearTL.to(
+          rightPanelRef.current,
+          {
+            scaleX: 1,
+            x: "100vw",
+            duration: 1,
+            ease: "power4.inOut",
+          },
+          0
+        );
+
+        // Fade out wrapper
+        tearTL.to(wrapperRef.current, { opacity: 0, duration: 0.4 }, "-=0.3");
+      });
+    }, wrapperRef);
+
+    return () => ctx.revert();
   }, [onComplete]);
 
   return (
-    <div
-      ref={containerRef}
-      className="w-screen h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[#030617] via-[#0f1a2f] to-[#061325] relative overflow-hidden"
-    >
-      <h1
-        ref={headingRef}
-        className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-red-500 to-yellow-400 mb-6 text-center drop-shadow-xl"
-      >
-        Lucky Gems
-      </h1>
+    <div className="fixed inset-0 z-50 overflow-hidden bg-black">
+      <div ref={wrapperRef} className="relative w-full h-full">
+        {/* Tear LEFT PANEL */}
+        <div
+          ref={leftPanelRef}
+          className="absolute top-0 bottom-0 left-1/2 w-1/2 z-40 bg-cover bg-center blur-sm"
+          style={{
+            backgroundImage:
+              "url('https://i.pinimg.com/736x/d6/94/78/d694780529794bba05dec61842cd8895.jpg')",
+          }}
+        ></div>
 
-      {/* Gem Container with Shine */}
-      <div className="relative w-52 h-52 flex items-center justify-center">
-        <img
-          ref={imgRef}
-          src={loadingGems}
-          alt="Loading Gems"
-          className="w-full h-full object-contain animate-pulse drop-shadow-[0_0_35px_rgba(255,255,255,0.6)]"
-        />
+        {/* Tear RIGHT PANEL */}
+        <div
+          ref={rightPanelRef}
+          className="absolute top-0 bottom-0 right-1/2 w-1/2 z-40 bg-cover bg-center blur-sm"
+          style={{
+            backgroundImage:
+              "url('https://i.pinimg.com/736x/d6/94/78/d694780529794bba05dec61842cd8895.jpg')",
+          }}
+        ></div>
+
+        {/* Centered Logo + Text */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center z-50 pointer-events-none">
+          <img
+            ref={logoRef}
+            src={logo}
+            alt="Lucky Gems Logo"
+            className="w-64 h-64 object-contain mb-6"
+            style={{
+              filter:
+                "drop-shadow(0 0 50px rgba(255, 255, 0, 1)) drop-shadow(0 0 80px rgba(255, 255, 0, 1))",
+            }}
+          />
+          <h2
+            ref={textRef}
+            className="text-3xl text-white font-semibold tracking-wide drop-shadow-md"
+          >
+            Loading <span className="text-yellow-400">Lucky Gems</span>...
+          </h2>
+        </div>
       </div>
-
-      <p
-        ref={textRef}
-        className="mt-6 text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-sky-400 to-blue-500"
-      >
-        Loading Lucky Gems...
-      </p>
     </div>
   );
 };

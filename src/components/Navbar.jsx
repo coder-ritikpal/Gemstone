@@ -10,19 +10,17 @@ const Navbar = () => {
   return (
     <nav className="bg-gradient-to-r from-green-950 via-pink-900 to-blue-900 text-white px-6  shadow-md">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        {/* Logo Image + Brand Text */}
         <div className="flex items-center space-x-3">
           <img
             src={logo}
             alt="Lucky Gems Logo"
             className="w-20 h-20 object-cover rounded-full shadow-md"
           />
-          <span className="text-2xl sm:text-3xl font-extrabold tracking-wider text-yellow-400">
+          <span className="text-2xl font-[Algerian] sm:text-3xl font-extrabold tracking-wider text-yellow-400">
             Lucky Gems
           </span>
         </div>
 
-        {/* Search Bar (Conditional) */}
         {showSearch && (
           <div className="hidden sm:block flex-1 max-w-lg mx-6">
             <div className="relative">

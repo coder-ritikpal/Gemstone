@@ -1,11 +1,9 @@
 // src/App.jsx
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
-  BrowserRouter as Router,
   Routes,
   Route,
   useLocation,
-  useNavigate,
 } from "react-router-dom";
 
 import { ToastContainer } from "react-toastify";
@@ -17,51 +15,31 @@ import PageTransition from "./components/PageTransition";
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignUpPage";
-import CartPage from "./pages/CartPage"
+import CartPage from "./pages/CartPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import AboutUsPage from "./pages/AboutUsPage";
 import ProductPage from "./pages/ProductPage";
 
-// Redirects to "/" if page was reloaded and not on home
-const ForceHomeRedirect = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (
-      window.performance &&
-      performance.getEntriesByType("navigation")[0]?.type === "reload"
-    ) {
-      if (location.pathname !== "/") {
-        navigate("/", { replace: true });
-      }
-    }
-  }, []);
-
-  return null;
-};
-
+// All route configurations
 const AppRoutes = () => {
   const location = useLocation();
 
   return (
-    <>
-      <ForceHomeRedirect />
-      <PageTransition>
-        <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/about" element={<AboutUsPage />} />
-          <Route path="/products" element={<ProductPage />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </PageTransition>
-    </>
+    <PageTransition>
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/about" element={<AboutUsPage />} />
+        <Route path="/products" element={<ProductPage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </PageTransition>
   );
 };
 
+// Main App component
 function App() {
   const [loadingDone, setLoadingDone] = useState(false);
 
@@ -70,9 +48,8 @@ function App() {
       {!loadingDone ? (
         <Loading onComplete={() => setLoadingDone(true)} />
       ) : (
-        <Router>
+        <>
           <AppRoutes />
-
           <ToastContainer
             position="top-center"
             autoClose={2500}
@@ -83,7 +60,7 @@ function App() {
             draggable
             theme="dark"
           />
-        </Router>
+        </>
       )}
     </>
   );
