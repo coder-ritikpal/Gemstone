@@ -17,7 +17,7 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignUpPage";
 import CartPage from "./pages/CartPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import AboutUsPage from "./pages/AboutUsPage";
+import AboutSection from "./pages/AboutSection";
 import ProductPage from "./pages/ProductPage";
 
 // All route configurations
@@ -30,7 +30,7 @@ const AppRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/about" element={<AboutUsPage />} />
+        <Route path="/about" element={<AboutSection />} />
         <Route path="/products" element={<ProductPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="*" element={<NotFoundPage />} />
