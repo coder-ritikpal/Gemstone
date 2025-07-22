@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -57,6 +58,7 @@ const gemstones = [
 ];
 
 const Showcase = () => {
+  const navigate = useNavigate();
   const cardRefs = useRef([]);
 
   useEffect(() => {
@@ -90,7 +92,8 @@ const Showcase = () => {
           <div
             key={index}
             ref={(el) => (cardRefs.current[index] = el)}
-            className="bg-gradient-to-br from-[#1f1f1f] to-[#000000] rounded-2xl p-6 shadow-inner border border-gray-700 hover:shadow-[0_0_20px_#00ff99] transition-all duration-300"
+            onClick={() => navigate("/products")}
+            className="bg-gradient-to-br from-[#1f1f1f] to-[#000000] rounded-2xl p-6 shadow-inner border border-gray-700 hover:shadow-[0_0_20px_#00ff99] transition-all duration-300 cursor-pointer hover:scale-105"
           >
             <div className="relative group w-24 h-24 mx-auto mb-4">
               <img

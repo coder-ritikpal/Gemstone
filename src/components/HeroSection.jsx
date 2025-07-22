@@ -4,9 +4,6 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gemImage from "../assets/loading.png"; 
 import gemsImage from "../assets/gems.png"; 
-import Showcase from "./Showcase";
-import History from "./History";
-import Footer from "./Footer";
 
 // Register GSAP plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -134,10 +131,8 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Other Sections */}
-      <Showcase />
-      <History/>
-      <Footer />
+      
+     
 
     </>
   );

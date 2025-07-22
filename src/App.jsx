@@ -15,10 +15,12 @@ import PageTransition from "./components/PageTransition";
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignUpPage";
-import CartPage from "./pages/CartPage";
+import CartPage from "./pages/Cart";
 import NotFoundPage from "./pages/NotFoundPage";
 import AboutSection from "./pages/AboutSection";
 import ProductPage from "./pages/ProductPage";
+import ProductDetails from "./pages/ProductDetails";
+import Cart from "./pages/Cart";
 
 // All route configurations
 const AppRoutes = () => {
@@ -32,7 +34,8 @@ const AppRoutes = () => {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/about" element={<AboutSection />} />
         <Route path="/products" element={<ProductPage />} />
-        <Route path="/cart" element={<CartPage />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </PageTransition>

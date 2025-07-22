@@ -31,15 +31,15 @@ const History = () => {
   };
 
   return (
-    <div className="bg-black text-white min-h-screen px-6 py-16">
-      <div className="max-w-3xl mx-auto space-y-6">
+    <div className="bg-black text-white px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16">
+      <div className="max-w-3xl mx-auto space-y-4 sm:space-y-6">
         {faqs.map((faq, index) => (
           <div key={index} className="border-b border-gray-700 pb-4">
             <button
               onClick={() => toggle(index)}
               className="w-full text-left flex justify-between items-center focus:outline-none"
             >
-              <h2 className="text-lg md:text-xl font-semibold text-yellow-400">
+              <h2 className="text-base sm:text-lg md:text-xl font-semibold text-yellow-400">
                 {faq.title}
               </h2>
               <span className="text-yellow-400 text-xl">
@@ -49,7 +49,7 @@ const History = () => {
 
             <div
               className={`transition-all duration-500 overflow-hidden ${
-                activeIndex === index ? "max-h-[500px] mt-3" : "max-h-0"
+                activeIndex === index ? "max-h-[500px] mt-2 sm:mt-3" : "max-h-0"
               }`}
             >
               <p className="text-gray-300 text-sm leading-relaxed">
