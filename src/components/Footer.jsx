@@ -1,67 +1,83 @@
-// src/components/Footer.jsx
 import React, { useRef, useEffect } from "react";
 import { FaInstagram, FaFacebookF, FaTwitter } from "react-icons/fa";
 import { BiCertification } from "react-icons/bi";
 import { MdLocalShipping, MdReplay } from "react-icons/md";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Footer = () => {
   const instaRef = useRef(null);
   const fbRef = useRef(null);
   const twitterRef = useRef(null);
+  const footerRef = useRef(null);
 
   useEffect(() => {
-    const addHoverCircleAnimation = (ref) => {
+    const animateIconHover = (ref) => {
       const icon = ref.current;
       const circle = icon.querySelector(".hover-circle");
       const sparkle = icon.querySelector(".sparkle");
 
+      const sparkleTween = gsap.to(sparkle, {
+        scale: 1.3,
+        opacity: 1,
+        x: 4,
+        y: -4,
+        duration: 0.8,
+        ease: "power1.inOut",
+        repeat: -1,
+        yoyo: true,
+        paused: true,
+      });
+
       icon.addEventListener("mouseenter", () => {
         gsap.fromTo(
           circle,
-          { scale: 0.5, opacity: 0, rotate: 0 },
+          { scale: 0.5, opacity: 0 },
           {
             scale: 1.4,
             opacity: 1,
-            rotate: 360,
-            duration: 0.6,
+            duration: 0.5,
             ease: "power2.out",
           }
         );
-
-        // Sparkle twinkle animation
-        gsap.fromTo(
-          sparkle,
-          { scale: 0.5, opacity: 0, x: -5, y: -5 },
-          {
-            scale: 1.2,
-            opacity: 1,
-            x: 5,
-            y: 5,
-            duration: 0.8,
-            ease: "power1.inOut",
-            repeat: -1,
-            yoyo: true,
-          }
-        );
+        sparkleTween.play();
       });
 
       icon.addEventListener("mouseleave", () => {
         gsap.to([circle, sparkle], {
           scale: 0,
           opacity: 0,
-          duration: 0.4,
-          ease: "power1.inOut",
+          duration: 0.3,
         });
-        gsap.killTweensOf(sparkle);
+        sparkleTween.pause(0);
       });
     };
 
-    [instaRef, fbRef, twitterRef].forEach(addHoverCircleAnimation);
+    [instaRef, fbRef, twitterRef].forEach(animateIconHover);
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: footerRef.current,
+        start: "top 85%",
+        once: true,
+      },
+      defaults: { duration: 0.6, ease: "power2.out" },
+    });
+
+    tl.fromTo("footer h2", { y: 30, opacity: 0 }, { y: 0, opacity: 1 })
+      .fromTo("footer p", { y: 30, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.2 }, "-=0.3")
+      .fromTo(".icon-wrapper", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, stagger: 0.15 }, "-=0.5")
+      .fromTo(".grid > div", { y: 30, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.2 }, "-=0.5")
+      .fromTo("footer .text-center.text-gray-500", { y: 10, opacity: 0 }, { y: 0, opacity: 1 }, "-=0.3");
   }, []);
 
   return (
-    <footer className="bg-black text-white py-10 px-6 border-t border-gray-800">
+    <footer
+      ref={footerRef}
+      className="bg-black text-white py-10 px-6 border-t border-gray-800"
+    >
       <div className="max-w-7xl mx-auto flex flex-col gap-10">
         {/* Top Row */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
@@ -79,13 +95,13 @@ const Footer = () => {
               <div
                 key={i}
                 ref={ref}
-                className="relative icon-wrapper w-10 h-10 flex items-center justify-center cursor-pointer"
+                className="relative icon-wrapper w-10 h-10 flex items-center justify-center cursor-pointer transition hover:scale-110"
               >
                 {i === 0 && <FaInstagram />}
                 {i === 1 && <FaFacebookF />}
                 {i === 2 && <FaTwitter />}
-                <span className="hover-circle absolute inset-0 border border-yellow-400 rounded-full opacity-0 scale-0 pointer-events-none"></span>
-                <span className="sparkle absolute w-2 h-2 bg-yellow-400 rounded-full opacity-0 pointer-events-none shadow-[0_0_8px_#facc15]"></span>
+                <span className="hover-circle absolute inset-0 border border-yellow-400 rounded-full opacity-0 scale-0 pointer-events-none transition-all duration-300"></span>
+                <span className="sparkle absolute w-2 h-2 bg-yellow-400 rounded-full opacity-0 pointer-events-none shadow-[0_0_6px_#facc15]"></span>
               </div>
             ))}
           </div>

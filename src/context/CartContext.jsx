@@ -1,14 +1,10 @@
-// src/context/CartContext.jsx
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-// Create context
 const CartContext = createContext();
 
-// Provider component
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
-  // Load cart from localStorage on mount
   useEffect(() => {
     const storedCart = localStorage.getItem("cartItems");
     if (storedCart) {

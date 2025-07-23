@@ -2,10 +2,9 @@ import React, { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import gemImage from "../assets/loading.png"; 
-import gemsImage from "../assets/gems.png"; 
+import gemImage from "../assets/loading.png";
+import gemsImage from "../assets/gems.png";
 
-// Register GSAP plugin
 gsap.registerPlugin(ScrollTrigger);
 
 const HeroSection = () => {
@@ -15,25 +14,61 @@ const HeroSection = () => {
     formState: { errors },
   } = useForm();
 
-  const imgRef = useRef(null); // Reference to image for rotation
+  const imgRef = useRef(null);
+  const formRef = useRef(null);
+  const aboutRef = useRef(null);
 
   const onSubmit = (data) => {
     console.log("User Birthdate:", data.birthdate);
   };
 
   useEffect(() => {
-    // Scroll-triggered rotation animation
+    // Image scroll-based rotation
     if (imgRef.current) {
       gsap.to(imgRef.current, {
         rotate: 360,
         ease: "none",
         scrollTrigger: {
           trigger: imgRef.current,
-          start: "top bottom",
+          start: "top 80%",
           end: "bottom top",
           scrub: true,
         },
       });
+    }
+
+    // Fade-in form
+    if (formRef.current) {
+      gsap.fromTo(
+        formRef.current,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          scrollTrigger: {
+            trigger: formRef.current,
+            start: "top 90%",
+          },
+        }
+      );
+    }
+
+    // Fade-in about section
+    if (aboutRef.current) {
+      gsap.fromTo(
+        aboutRef.current,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          scrollTrigger: {
+            trigger: aboutRef.current,
+            start: "top 90%",
+          },
+        }
+      );
     }
   }, []);
 
@@ -41,7 +76,8 @@ const HeroSection = () => {
     <>
       {/* Hero Section */}
       <div className="min-h-screen bg-black text-white px-6 py-12 flex flex-col md:flex-row items-center justify-center gap-10">
-        <div className="md:w-1/2 w-full space-y-8">
+        {/* Left: Form */}
+        <div className="md:w-1/2 w-full space-y-8" ref={formRef}>
           <div>
             <h1 className="text-4xl font-bold text-pink-400 mb-2 drop-shadow-md">
               Welcome to Lucky Gemstones
@@ -89,29 +125,40 @@ const HeroSection = () => {
           </form>
         </div>
 
-        {/* Rotating Gem Image */}
+        {/* Right: Rotating Image */}
         <div className="md:w-1/2 w-full flex justify-center">
           <img
             ref={imgRef}
             src={gemImage}
             alt="Lucky Gem"
-            className="w-[350px] h-auto drop-shadow-[0_0_40px_rgba(255,255,0,0.7)]"
+            className="w-[350px] h-auto rounded-xl"
+            style={{
+              filter: "drop-shadow(0 0 25px #facc15)", // Yellow glow
+            }}
           />
+
         </div>
       </div>
 
       {/* About Section */}
-      <div className="bg-gradient-to-br from-black via-gray-900 to-black text-white px-6 py-16 flex flex-col md:flex-row items-center justify-center gap-12">
-        {/* Left Side: Image (hidden on mobile) */}
+      <div
+        ref={aboutRef}
+        className="bg-gradient-to-br from-black via-gray-900 to-black text-white px-6 py-16 flex flex-col md:flex-row items-center justify-center gap-12"
+      >
+        {/* Left Image */}
         <div className="hidden md:flex md:w-1/2 justify-center">
           <img
             src={gemsImage}
             alt="Gemstone Info"
-            className="w-[300px] h-auto rounded-xl shadow-xl"
+            className="w-[300px] h-auto rounded-xl"
+            style={{
+              filter: "drop-shadow(0 0 30px #00f0ff)", // Yellow glow
+            }}
           />
+
         </div>
 
-        {/* Right Side: Description */}
+        {/* Right Text */}
         <div className="md:w-1/2 w-full space-y-5">
           <h2 className="text-3xl font-bold text-yellow-400 drop-shadow-md">
             What Are Gemstones?
@@ -130,10 +177,6 @@ const HeroSection = () => {
           </p>
         </div>
       </div>
-
-      
-     
-
     </>
   );
 };

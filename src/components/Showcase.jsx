@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -61,7 +61,7 @@ const Showcase = () => {
   const navigate = useNavigate();
   const cardRefs = useRef([]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     cardRefs.current.forEach((card, index) => {
       gsap.fromTo(
         card,
@@ -76,10 +76,13 @@ const Showcase = () => {
           scrollTrigger: {
             trigger: card,
             start: "top 85%",
+            toggleActions: "play none none reverse",
           },
         }
       );
     });
+
+    ScrollTrigger.refresh(); // Ensure triggers are recalculated
   }, []);
 
   return (
@@ -99,14 +102,8 @@ const Showcase = () => {
               <img
                 src={gem.image}
                 alt={gem.name}
-                className="w-full h-full object-contain transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_white]"
+                className="w-full h-full object-contain drop-shadow-[0_0_12px_#00ffcc] transition-all duration-300 group-hover:scale-110"
               />
-              <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-                <div
-                  className="w-1/3 h-full bg-white blur-xl opacity-10"
-                  style={{ position: "absolute", top: 0 }}
-                ></div>
-              </div>
             </div>
 
             <h3 className="text-lg font-bold text-green-400 mb-1 text-center">
