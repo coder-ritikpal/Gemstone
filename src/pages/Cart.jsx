@@ -1,4 +1,3 @@
-// src/pages/Cart.jsx
 import React from "react";
 import { useCart } from "../context/CartContext";
 import Navbar from "../components/Navbar";

@@ -23,7 +23,6 @@ const HeroSection = () => {
   };
 
   useEffect(() => {
-    // Image scroll-based rotation
     if (imgRef.current) {
       gsap.to(imgRef.current, {
         rotate: 360,
@@ -37,7 +36,6 @@ const HeroSection = () => {
       });
     }
 
-    // Fade-in form
     if (formRef.current) {
       gsap.fromTo(
         formRef.current,
@@ -54,7 +52,6 @@ const HeroSection = () => {
       );
     }
 
-    // Fade-in about section
     if (aboutRef.current) {
       gsap.fromTo(
         aboutRef.current,
@@ -74,9 +71,7 @@ const HeroSection = () => {
 
   return (
     <>
-      {/* Hero Section */}
       <div className="min-h-screen bg-black text-white px-6 py-12 flex flex-col md:flex-row items-center justify-center gap-10">
-        {/* Left: Form */}
         <div className="md:w-1/2 w-full space-y-8" ref={formRef}>
           <div>
             <h1 className="text-4xl font-bold text-pink-400 mb-2 drop-shadow-md">
@@ -125,7 +120,6 @@ const HeroSection = () => {
           </form>
         </div>
 
-        {/* Right: Rotating Image */}
         <div className="md:w-1/2 w-full flex justify-center">
           <img
             ref={imgRef}
@@ -140,12 +134,10 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* About Section */}
       <div
         ref={aboutRef}
         className="bg-gradient-to-br from-black via-gray-900 to-black text-white px-6 py-16 flex flex-col md:flex-row items-center justify-center gap-12"
       >
-        {/* Left Image */}
         <div className="hidden md:flex md:w-1/2 justify-center">
           <img
             src={gemsImage}
@@ -158,7 +150,6 @@ const HeroSection = () => {
 
         </div>
 
-        {/* Right Text */}
         <div className="md:w-1/2 w-full space-y-5">
           <h2 className="text-3xl font-bold text-yellow-400 drop-shadow-md">
             What Are Gemstones?

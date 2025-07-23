@@ -79,9 +79,7 @@ const Footer = () => {
       className="bg-black text-white py-10 px-6 border-t border-gray-800"
     >
       <div className="max-w-7xl mx-auto flex flex-col gap-10">
-        {/* Top Row */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          {/* Branding */}
           <div className="text-center md:text-left">
             <h2 className="text-2xl font-bold text-yellow-400">Lucky Gemstones</h2>
             <p className="text-gray-400 text-sm mt-2 max-w-sm">
@@ -107,7 +105,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Feature Row */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center border-t border-gray-700 pt-6">
           <div className="flex flex-col items-center">
             <BiCertification className="text-3xl text-green-400 mb-2" />
@@ -123,7 +120,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Copyright */}
         <div className="text-center text-gray-500 text-sm border-t border-gray-700 pt-4">
           © {new Date().getFullYear()} Lucky Gemstones. All rights reserved.
         </div>

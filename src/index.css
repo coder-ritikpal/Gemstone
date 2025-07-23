@@ -2,7 +2,7 @@
 
 
 
-@layer utilities {
+/* @layer utilities {
   .animate-gradient {
     animation: gradientBG 15s ease infinite;
   }
@@ -46,5 +46,5 @@
     0% { background-position: 0% 50%; }
     100% { background-position: 100% 50%; }
   }
-}
+} */
 

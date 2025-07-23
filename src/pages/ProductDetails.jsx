@@ -1,4 +1,3 @@
-// src/pages/ProductDetails.jsx
 import React, { useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";

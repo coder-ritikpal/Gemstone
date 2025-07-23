@@ -1,4 +1,4 @@
-// src/data/products.js
+
 import img1 from "../assets/productImages/blue-sapphire.png";
 import img2 from "../assets/productImages/emerald.png";
 import img3 from "../assets/productImages/hessonite.png";

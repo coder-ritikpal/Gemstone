@@ -16,7 +16,7 @@ const Loading = ({ onComplete }) => {
       tl.fromTo(
         wrapperRef.current,
         { opacity: 0 },
-        { opacity: 1, duration: 1.2, ease: "power2.out" }
+        { opacity: 1, duration: 0.7, ease: "power2.out" }
       );
 
       tl.fromTo(
@@ -26,7 +26,7 @@ const Loading = ({ onComplete }) => {
           opacity: 1,
           y: 0,
           scale: 1,
-          duration: 1.3,
+          duration: 0.8,
           ease: "power3.out",
           stagger: 0.2,
         },
@@ -38,14 +38,12 @@ const Loading = ({ onComplete }) => {
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut",
-        duration: 1.2,
+        duration: 0.8,
       });
 
-      // Wait before tearing transition
       tl.to({}, { duration: 2 }).add(() => {
         const tearTL = gsap.timeline({ onComplete });
 
-        // Fade out logo and text
         tearTL.to([logoRef.current, textRef.current], {
           opacity: 0,
           y: -20,
@@ -53,19 +51,17 @@ const Loading = ({ onComplete }) => {
           ease: "power1.inOut",
         });
 
-        // Set scale to 0 to prepare tearing effect
         tearTL.set([leftPanelRef.current, rightPanelRef.current], {
           scaleX: 0,
           transformOrigin: "center",
         });
 
-        // Tearing transition
         tearTL.to(
           leftPanelRef.current,
           {
             scaleX: 1,
             x: "-100vw",
-            duration: 1,
+            duration: 0.8,
             ease: "power4.inOut",
           },
           0
@@ -75,13 +71,12 @@ const Loading = ({ onComplete }) => {
           {
             scaleX: 1,
             x: "100vw",
-            duration: 1,
+            duration: 0.8,
             ease: "power4.inOut",
           },
           0
         );
 
-        // Fade out entire screen
         tearTL.to(wrapperRef.current, { opacity: 0, duration: 0.4 }, "-=0.3");
       });
     }, wrapperRef);
@@ -92,7 +87,6 @@ const Loading = ({ onComplete }) => {
   return (
     <div className="fixed inset-0 z-[9999] overflow-hidden bg-black">
       <div ref={wrapperRef} className="relative w-full h-full">
-        {/* Left Panel */}
         <div
           ref={leftPanelRef}
           className="absolute top-0 bottom-0 left-1/2 w-1/2 z-40 bg-cover bg-center blur-sm"
@@ -102,7 +96,6 @@ const Loading = ({ onComplete }) => {
           }}
         />
 
-        {/* Right Panel */}
         <div
           ref={rightPanelRef}
           className="absolute top-0 bottom-0 right-1/2 w-1/2 z-40 bg-cover bg-center blur-sm"
@@ -112,7 +105,6 @@ const Loading = ({ onComplete }) => {
           }}
         />
 
-        {/* Center content */}
         <div className="absolute inset-0 flex flex-col items-center justify-center z-50 text-center pointer-events-none px-4">
           <img
             ref={logoRef}

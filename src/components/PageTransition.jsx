@@ -1,4 +1,3 @@
-// src/components/PageTransition.jsx
 import React, { useLayoutEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { gsap } from "gsap";
@@ -16,7 +15,7 @@ const PageTransition = ({ children }) => {
       );
     }, containerRef);
 
-    return () => ctx.revert(); // Clean up on unmount
+    return () => ctx.revert(); 
   }, [location.pathname]);
 
   return (

@@ -73,7 +73,6 @@ const AboutSection = () => {
   const cardsRef = useRef([]);
 
   useEffect(() => {
-    // GSAP Marquee Scroll
     const contentWidth = marqueeContentRef.current.scrollWidth / 2;
 
     const marqueeTween = gsap.to(marqueeContentRef.current, {
@@ -83,14 +82,13 @@ const AboutSection = () => {
       repeat: -1,
     });
 
-    // Optional: Pause on hover
     const el = marqueeContentRef.current;
     const pause = () => gsap.to(marqueeTween, { timeScale: 0 });
     const resume = () => gsap.to(marqueeTween, { timeScale: 1 });
     el.addEventListener("mouseenter", pause);
     el.addEventListener("mouseleave", resume);
 
-    // Animate grid cards
+
     cardsRef.current.forEach((card, i) => {
       if (!card) return;
       gsap.fromTo(
@@ -136,7 +134,6 @@ const AboutSection = () => {
             </p>
           </div>
 
-          {/* GSAP Marquee */}
           <div
             className="overflow-hidden mb-14 scrollbar-hide"
             ref={marqueeRef}

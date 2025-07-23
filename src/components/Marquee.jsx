@@ -21,7 +21,6 @@ const Marquee = () => {
   const trackRef = useRef(null);
 
   useEffect(() => {
-    // glowing effect
     gsap.utils.toArray(".glow-img").forEach((img) =>
       gsap.to(img, {
         filter: "drop-shadow(0 0 25px rgba(0,174,255,0.8))",
@@ -32,7 +31,6 @@ const Marquee = () => {
       })
     );
 
-    // smooth marquee loop
     const ctx = gsap.context(() => {
       gsap.fromTo(
         trackRef.current,

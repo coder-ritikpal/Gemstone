@@ -8,7 +8,6 @@ const Navbar = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuMenuOpen] = useState(false);
 
-  // Refs for animation
   const logoRef = useRef(null);
   const brandRef = useRef(null);
   const iconsRef = useRef([]);
@@ -43,7 +42,6 @@ const Navbar = () => {
   return (
     <nav className="bg-gradient-to-r from-green-950 via-pink-900 to-blue-900 text-white px-6 shadow-md">
       <div className="max-w-7xl mx-auto flex items-center justify-between ">
-        {/* Logo + Brand */}
         <div className="flex items-center space-x-3">
           <img
             src={logo}
@@ -59,7 +57,6 @@ const Navbar = () => {
           </span>
         </div>
 
-        {/* Search */}
         {showSearch && (
           <div className="hidden sm:block flex-1 max-w-lg mx-6">
             <div className="relative">
@@ -73,7 +70,6 @@ const Navbar = () => {
           </div>
         )}
 
-        {/* Desktop Icons */}
         <div className="hidden sm:flex items-center space-x-4">
           <button
             ref={(el) => (iconsRef.current[0] = el)}
