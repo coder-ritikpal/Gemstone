@@ -1,4 +1,4 @@
-# 💎 Lucky Gemstone
+# 💎 Lucky Gemstone (Hackathon Project)
 
 Lucky Gemstone is a modern, responsive, and interactive frontend web application built with **React**, **Vite**, **Tailwind CSS**, and deployed on **Netlify**. This project is designed as a gemstone e-commerce website, allowing users to explore and learn about various precious gemstones.
 
