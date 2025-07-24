@@ -1,12 +1,36 @@
-# React + Vite
+# 💎 Lucky Gemstone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Lucky Gemstone is a modern, responsive, and interactive frontend web application built with **React**, **Vite**, **Tailwind CSS**, and deployed on **Netlify**. This project is designed as a gemstone e-commerce website, allowing users to explore and learn about various precious gemstones.
 
-Currently, two official plugins are available:
+> 🚀 This is my first ever  pure frontend haakathon project, created for the **Sheryians Cohort Hackathon**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+## 🌟 Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- ⚡ Built with **Vite** for fast development
+- 🛍️ Interactive UI showcasing **precious gemstones**
+- 💅 Styled using **Tailwind CSS**
+- 🌀 Animated with **GSAP**
+- 📱 Fully **responsive** for all screen sizes
+- 🧭 Simple **navigation** with React Router
+- 🛒 Includes **"Add to Cart"** functionality (frontend only)
+- 🔥 Hosted on **Netlify**
+- 🎯 Hackathon-ready and beginner-friendly
+
+---
+
+
+## 🛠️ Tech Stack
+
+| Tech             | Description                              |
+|------------------|------------------------------------------|
+| React            | UI Library for building components       |
+| Vite             | Build tool for blazing-fast dev          |
+| Tailwind CSS     | Utility-first CSS framework              |
+| GSAP             | Animation library for scroll effects     |
+| React Router DOM | Page navigation and routing              |
+| Netlify          | Deployment platform                      |
+
+
+
+
