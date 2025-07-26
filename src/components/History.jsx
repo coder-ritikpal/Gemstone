@@ -1,4 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const faqs = [
   {
@@ -25,16 +29,38 @@ const faqs = [
 
 const History = () => {
   const [activeIndex, setActiveIndex] = useState(null);
+  const wrapperRef = useRef(null);
 
   const toggle = (index) => {
     setActiveIndex((prev) => (prev === index ? null : index));
   };
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(".faq-item", {
+        scrollTrigger: {
+          trigger: wrapperRef.current,
+          start: "top 80%",
+        },
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power3.out",
+      });
+    }, wrapperRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <div className="bg-black text-white px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16">
+    <div
+      ref={wrapperRef}
+      className="bg-black text-white px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16"
+    >
       <div className="max-w-3xl mx-auto space-y-4 sm:space-y-6">
         {faqs.map((faq, index) => (
-          <div key={index} className="border-b border-gray-700 pb-4">
+          <div key={index} className="faq-item border-b border-gray-700 pb-4">
             <button
               onClick={() => toggle(index)}
               className="w-full text-left flex justify-between items-center focus:outline-none"

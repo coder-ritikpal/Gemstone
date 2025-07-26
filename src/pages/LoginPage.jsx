@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { gsap } from "gsap";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -30,7 +32,7 @@ const LoginPage = () => {
       storedUser.email === data.email &&
       storedUser.password === data.password
     ) {
-      toast.success("Login successful!");
+      toast.success("Login successfull!");
       setTimeout(() => navigate("/"), 1000);
     } else {
       toast.error("User not found, please sign up!");
@@ -38,6 +40,8 @@ const LoginPage = () => {
   };
 
   return (
+   <>
+   <Navbar />
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-black text-white px-4">
       <div
         ref={formRef}
@@ -104,6 +108,9 @@ const LoginPage = () => {
         </p>
       </div>
     </div>
+
+    <Footer />
+   </>
   );
 };
 
