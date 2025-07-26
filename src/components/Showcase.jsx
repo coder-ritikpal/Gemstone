@@ -82,7 +82,7 @@ const Showcase = () => {
       );
     });
 
-    ScrollTrigger.refresh(); n
+    ScrollTrigger.refresh(); 
   }, []);
 
   return (
